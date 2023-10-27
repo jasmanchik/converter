@@ -9,16 +9,16 @@ import (
 const maxCap = 1_000_000
 const exitCmd = "exit"
 
+// ReadData todo read data
 func (c *CsvReader) ReadData() {
-
 }
 
 func (c *CsvReader) GetLogs() *[]Log {
 	return &c.Logs
 }
 
+// ReadData todo read data
 func (c *YAMLReader) ReadData() {
-
 }
 
 func (c *YAMLReader) GetLogs() *[]Log {
@@ -47,8 +47,8 @@ func (c *JSONReader) GetLogs() *[]Log {
 	return &c.Logs
 }
 
+// ReadData todo read data
 func (c *ProtoReader) ReadData() {
-
 }
 
 func (c *ProtoReader) GetLogs() *[]Log {

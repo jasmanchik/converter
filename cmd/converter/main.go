@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io"
 	"learn/cmd/converter/internal/converter"
 	"log"
@@ -40,14 +41,16 @@ func main() {
 		oExt = defOutExt
 	}
 	wf := getIOWriter(output)
+
 	var w converter.Writable
-	if cExt == "json" {
+	if oExt == "json" {
 		w = &converter.JSONWriter{IO: wf, Reader: r}
-	} else if cExt == "protobuf" {
+	} else if oExt == "protobuf" {
 		w = &converter.ProtoWriter{IO: wf, Reader: r}
-	} else if cExt == "csv" {
+	} else if oExt == "csv" {
+		fmt.Println(321)
 		w = &converter.CsvWriter{IO: wf, Reader: r}
-	} else if cExt == "yaml" {
+	} else if oExt == "yaml" {
 		w = &converter.YamlWriter{IO: wf, Reader: r}
 	}
 	w.SaveData()
@@ -56,12 +59,12 @@ func main() {
 func getIOReader(config string) io.Reader {
 	if config != "" {
 		f, err := os.Open(config)
-		//defer func(f *os.File) {
-		//	err := f.Close()
-		//	if err != nil {
-		//		log.Println("can't close file:", err)
-		//	}
-		//}(f)
+		/*defer func(f *os.File) {
+			err := f.Close()
+			if err != nil {
+				log.Println("can't close file:", err)
+			}
+		}(f)*/
 
 		if err != nil {
 			log.Fatalln("can't open file:", err)
@@ -75,13 +78,13 @@ func getIOReader(config string) io.Reader {
 func getIOWriter(output string) io.Writer {
 	if output != "" {
 		f, err := os.Create(output)
-		//defer func(f *os.File) {
-		//	err := f.Close()
-		//	if err != nil {
-		//		log.Println("can't close file:", err)
-		//
-		//	}
-		//}(f)
+		/*defer func(f *os.File) {
+			err := f.Close()
+			if err != nil {
+				log.Println("can't close file:", err)
+
+			}
+		}(f)*/
 
 		if err != nil {
 			log.Fatalln("can't create the file:", err)

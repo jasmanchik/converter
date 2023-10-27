@@ -58,11 +58,14 @@ func (c *CsvWriter) SaveData() {
 	}
 }
 
+// SaveData todo запись данных
 func (c *YamlWriter) SaveData() {
 }
 
+// SaveData todo запись данных
 func (c *ProtoWriter) SaveData() {
 }
 
+// SaveData todo запись данных
 func (c *JSONWriter) SaveData() {
 }
