@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"io"
 	"learn/cmd/converter/internal/converter"
 	"log"
@@ -24,6 +23,15 @@ func main() {
 	if cExt == "" {
 		cExt = defInExt
 	}
+	if oExt == "" {
+		oExt = defOutExt
+	}
+
+	if cExt == oExt {
+		log.Fatalf("can't convert %s to %s", cExt, oExt)
+		return
+	}
+
 	rf := getIOReader(config)
 	var r converter.Readable
 	if cExt == "json" {
@@ -37,9 +45,6 @@ func main() {
 	}
 	r.ReadData()
 
-	if oExt == "" {
-		oExt = defOutExt
-	}
 	wf := getIOWriter(output)
 
 	var w converter.Writable
@@ -48,7 +53,6 @@ func main() {
 	} else if oExt == "protobuf" {
 		w = &converter.ProtoWriter{IO: wf, Reader: r}
 	} else if oExt == "csv" {
-		fmt.Println(321)
 		w = &converter.CsvWriter{IO: wf, Reader: r}
 	} else if oExt == "yaml" {
 		w = &converter.YamlWriter{IO: wf, Reader: r}
